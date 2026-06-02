@@ -1,0 +1,497 @@
+[
+    {
+        "model": "apps_language_practice.Vocabulary",
+        "pk": 1,
+        "fields": {
+            "word_vocab": "Keep one's nose clean",
+            "language": 1,
+            "created_at": "2025-06-01T12:00:00Z",
+            "updated_at": "2025-06-01T12:00:00Z",
+            "enable": true
+        }
+    },
+    {
+        "model": "apps_language_practice.Vocabulary",
+        "pk": 2,
+        "fields": {
+            "word_vocab": "A hoax",
+            "language": 1,
+            "created_at": "2025-06-01T12:00:00Z",
+            "updated_at": "2025-06-01T12:00:00Z",
+            "enable": true
+        }
+    },
+    {
+        "model": "apps_language_practice.Vocabulary",
+        "pk": 3,
+        "fields": {
+            "word_vocab": "Swallow the bait",
+            "language": 1,
+            "created_at": "2025-06-01T12:00:00Z",
+            "updated_at": "2025-06-01T12:00:00Z",
+            "enable": true
+        }
+    },
+    {
+        "model": "apps_language_practice.Vocabulary",
+        "pk": 4,
+        "fields": {
+            "word_vocab": "How come",
+            "language": 1,
+            "created_at": "2025-06-01T12:00:00Z",
+            "updated_at": "2025-06-01T12:00:00Z",
+            "enable": true
+        }
+    },
+    {
+        "model": "apps_language_practice.Vocabulary",
+        "pk": 5,
+        "fields": {
+            "word_vocab": "Bark up the wrong tree",
+            "language": 1,
+            "created_at": "2025-06-01T12:00:00Z",
+            "updated_at": "2025-06-01T12:00:00Z",
+            "enable": true
+        }
+    },
+    {
+        "model": "apps_language_practice.Vocabulary",
+        "pk": 6,
+        "fields": {
+            "word_vocab": "Count on",
+            "language": 1,
+            "created_at": "2025-06-01T12:00:00Z",
+            "updated_at": "2025-06-01T12:00:00Z",
+            "enable": true
+        }
+    },
+    {
+        "model": "apps_language_practice.Vocabulary",
+        "pk": 8,
+        "fields": {
+            "word_vocab": "Turn out",
+            "language": 1,
+            "created_at": "2025-06-01T12:00:00Z",
+            "updated_at": "2025-06-01T12:00:00Z",
+            "enable": true
+        }
+    },
+    {
+        "model": "apps_language_practice.Vocabulary",
+        "pk": 9,
+        "fields": {
+            "word_vocab": "Get rid of",
+            "language": 1,
+            "created_at": "2025-06-01T12:00:00Z",
+            "updated_at": "2025-06-01T12:00:00Z",
+            "enable": true
+        }
+    },
+    {
+        "model": "apps_language_practice.Vocabulary",
+        "pk": 10,
+        "fields": {
+            "word_vocab": "Pathetic",
+            "language": 1,
+            "created_at": "2025-06-01T12:00:00Z",
+            "updated_at": "2025-06-01T12:00:00Z",
+            "enable": true
+        }
+    },
+    {
+        "model": "apps_language_practice.Vocabulary",
+        "pk": 11,
+        "fields": {
+            "word_vocab": "To bark at the moon",
+            "language": 1,
+            "created_at": "2025-06-01T12:00:00Z",
+            "updated_at": "2025-06-01T12:00:00Z",
+            "enable": true
+        }
+    },
+    {
+        "model": "apps_language_practice.Vocabulary",
+        "pk": 12,
+        "fields": {
+            "word_vocab": "To be over the moon",
+            "language": 1,
+            "created_at": "2025-06-01T12:00:00Z",
+            "updated_at": "2025-06-01T12:00:00Z",
+            "enable": true
+        }
+    },
+    {
+        "model": "apps_language_practice.Vocabulary",
+        "pk": 13,
+        "fields": {
+            "word_vocab": "Many moons ago",
+            "language": 1,
+            "created_at": "2025-06-01T12:00:00Z",
+            "updated_at": "2025-06-01T12:00:00Z",
+            "enable": true
+        }
+    },
+    {
+        "model": "apps_language_practice.Vocabulary",
+        "pk": 14,
+        "fields": {
+            "word_vocab": "Shoot for the moon",
+            "language": 1,
+            "created_at": "2025-06-01T12:00:00Z",
+            "updated_at": "2025-06-01T12:00:00Z",
+            "enable": true
+        }
+    },
+    {
+        "model": "apps_language_practice.Vocabulary",
+        "pk": 15,
+        "fields": {
+            "word_vocab": "Moonstruck",
+            "language": 1,
+            "created_at": "2025-06-01T12:00:00Z",
+            "updated_at": "2025-06-01T12:00:00Z",
+            "enable": true
+        }
+    },
+    {
+        "model": "apps_language_practice.Vocabulary",
+        "pk": 16,
+        "fields": {
+            "word_vocab": "Go/be out of (one's) mind",
+            "language": 1,
+            "created_at": "2025-06-01T12:00:00Z",
+            "updated_at": "2025-06-01T12:00:00Z",
+            "enable": true
+        }
+    },
+    {
+        "model": "apps_language_practice.Vocabulary",
+        "pk": 17,
+        "fields": {
+            "word_vocab": "Cot",
+            "language": 1,
+            "created_at": "2025-06-01T12:00:00Z",
+            "updated_at": "2025-06-01T12:00:00Z",
+            "enable": true
+        }
+    },
+    {
+        "model": "apps_language_practice.Vocabulary",
+        "pk": 18,
+        "fields": {
+            "word_vocab": "Go/fall by the wayside",
+            "language": 1,
+            "created_at": "2025-06-01T12:00:00Z",
+            "updated_at": "2025-06-01T12:00:00Z",
+            "enable": true
+        }
+    },
+    {
+        "model": "apps_language_practice.Vocabulary",
+        "pk": 19,
+        "fields": {
+            "word_vocab": "Go down the drain/tubes",
+            "language": 1,
+            "created_at": "2025-06-01T12:00:00Z",
+            "updated_at": "2025-06-01T12:00:00Z",
+            "enable": true
+        }
+    },
+    {
+        "model": "apps_language_practice.Vocabulary",
+        "pk": 20,
+        "fields": {
+            "word_vocab": "Go Dutch",
+            "language": 1,
+            "created_at": "2025-06-01T12:00:00Z",
+            "updated_at": "2025-06-01T12:00:00Z",
+            "enable": true
+        }
+    },
+    {
+        "model": "apps_language_practice.Vocabulary",
+        "pk": 21,
+        "fields": {
+            "word_vocab": "Go figure",
+            "language": 1,
+            "created_at": "2025-06-01T12:00:00Z",
+            "updated_at": "2025-06-01T12:00:00Z",
+            "enable": true
+        }
+    },
+    {
+        "model": "apps_language_practice.Vocabulary",
+        "pk": 22,
+        "fields": {
+            "word_vocab": "On the go",
+            "language": 1,
+            "created_at": "2025-06-01T12:00:00Z",
+            "updated_at": "2025-06-01T12:00:00Z",
+            "enable": true
+        }
+    },
+    {
+        "model": "apps_language_practice.Vocabulary",
+        "pk": 23,
+        "fields": {
+            "word_vocab": "Go/run (a)round in cercles",
+            "language": 1,
+            "created_at": "2025-06-01T12:00:00Z",
+            "updated_at": "2025-06-01T12:00:00Z",
+            "enable": true
+        }
+    },
+    {
+        "model": "apps_language_practice.Vocabulary",
+        "pk": 24,
+        "fields": {
+            "word_vocab": "Go one's way",
+            "language": 1,
+            "created_at": "2025-06-01T12:00:00Z",
+            "updated_at": "2025-06-01T12:00:00Z",
+            "enable": true
+        }
+    },
+    {
+        "model": "apps_language_practice.Vocabulary",
+        "pk": 25,
+        "fields": {
+            "word_vocab": "Go/swim against the tide/stream",
+            "language": 1,
+            "created_at": "2025-06-01T12:00:00Z",
+            "updated_at": "2025-06-01T12:00:00Z",
+            "enable": true
+        }
+    },
+    {
+        "model": "apps_language_practice.Vocabulary",
+        "pk": 26,
+        "fields": {
+            "word_vocab": "Go away with (someone/something)",
+            "language": 1,
+            "created_at": "2025-06-01T12:00:00Z",
+            "updated_at": "2025-06-01T12:00:00Z",
+            "enable": true
+        }
+    },
+    {
+        "model": "apps_language_practice.Vocabulary",
+        "pk": 27,
+        "fields": {
+            "word_vocab": "Go back on (one's) word",
+            "language": 1,
+            "created_at": "2025-06-01T12:00:00Z",
+            "updated_at": "2025-06-01T12:00:00Z",
+            "enable": true
+        }
+    },
+    {
+        "model": "apps_language_practice.Vocabulary",
+        "pk": 28,
+        "fields": {
+            "word_vocab": "Go/be back to square one",
+            "language": 1,
+            "created_at": "2025-06-01T12:00:00Z",
+            "updated_at": "2025-06-01T12:00:00Z",
+            "enable": true
+        }
+    },
+    {
+        "model": "apps_language_practice.Vocabulary",
+        "pk": 29,
+        "fields": {
+            "word_vocab": "Go bad",
+            "language": 1,
+            "created_at": "2025-06-01T12:00:00Z",
+            "updated_at": "2025-06-01T12:00:00Z",
+            "enable": true
+        }
+    },
+    {
+        "model": "apps_language_practice.Vocabulary",
+        "pk": 30,
+        "fields": {
+            "word_vocab": "From bad to worse",
+            "language": 1,
+            "created_at": "2025-06-01T12:00:00Z",
+            "updated_at": "2025-06-01T12:00:00Z",
+            "enable": true
+        }
+    },
+    {
+        "model": "apps_language_practice.Vocabulary",
+        "pk": 31,
+        "fields": {
+            "word_vocab": "Further",
+            "language": 1,
+            "created_at": "2025-06-01T12:00:00Z",
+            "updated_at": "2025-06-01T12:00:00Z",
+            "enable": true
+        }
+    },
+    {
+        "model": "apps_language_practice.Vocabulary",
+        "pk": 32,
+        "fields": {
+            "word_vocab": "Farther",
+            "language": 1,
+            "created_at": "2025-06-01T12:00:00Z",
+            "updated_at": "2025-06-01T12:00:00Z",
+            "enable": true
+        }
+    },
+    {
+        "model": "apps_language_practice.Vocabulary",
+        "pk": 33,
+        "fields": {
+            "word_vocab": "a rip-off/to get ripped off",
+            "language": 1,
+            "created_at": "2025-06-01T12:00:00Z",
+            "updated_at": "2025-06-01T12:00:00Z",
+            "enable": true
+        }
+    },
+    {
+        "model": "apps_language_practice.Vocabulary",
+        "pk": 34,
+        "fields": {
+            "word_vocab": "Cheesy",
+            "language": 1,
+            "created_at": "2025-06-01T12:00:00Z",
+            "updated_at": "2025-06-01T12:00:00Z",
+            "enable": true
+        }
+    },
+    {
+        "model": "apps_language_practice.Vocabulary",
+        "pk": 35,
+        "fields": {
+            "word_vocab": "Corny",
+            "language": 1,
+            "created_at": "2025-06-01T12:00:00Z",
+            "updated_at": "2025-06-01T12:00:00Z",
+            "enable": true
+        }
+    },
+    {
+        "model": "apps_language_practice.Vocabulary",
+        "pk": 36,
+        "fields": {
+            "word_vocab": "To be up for/What are you up to?",
+            "language": 1,
+            "created_at": "2025-06-01T12:00:00Z",
+            "updated_at": "2025-06-01T12:00:00Z",
+            "enable": true
+        }
+    },
+    {
+        "model": "apps_language_practice.Vocabulary",
+        "pk": 37,
+        "fields": {
+            "word_vocab": "Whatshisface/Whatsherface",
+            "language": 1,
+            "created_at": "2025-06-01T12:00:00Z",
+            "updated_at": "2025-06-01T12:00:00Z",
+            "enable": true
+        }
+    },
+    {
+        "model": "apps_language_practice.Vocabulary",
+        "pk": 38,
+        "fields": {
+            "word_vocab": "Muddle along",
+            "language": 1,
+            "created_at": "2025-06-01T12:00:00Z",
+            "updated_at": "2025-06-01T12:00:00Z",
+            "enable": true
+        }
+    },
+    {
+        "model": "apps_language_practice.Vocabulary",
+        "pk": 39,
+        "fields": {
+            "word_vocab": "A 'You' problem",
+            "language": 1,
+            "created_at": "2025-06-01T12:00:00Z",
+            "updated_at": "2025-06-01T12:00:00Z",
+            "enable": true
+        }
+    },
+    {
+        "model": "apps_language_practice.Vocabulary",
+        "pk": 40,
+        "fields": {
+            "word_vocab": "Tough it out",
+            "language": 1,
+            "created_at": "2025-06-01T12:00:00Z",
+            "updated_at": "2025-06-01T12:00:00Z",
+            "enable": true
+        }
+    },
+    {
+        "model": "apps_language_practice.Vocabulary",
+        "pk": 41,
+        "fields": {
+            "word_vocab": "All hands on deck",
+            "language": 1,
+            "created_at": "2025-06-01T12:00:00Z",
+            "updated_at": "2025-06-01T12:00:00Z",
+            "enable": true
+        }
+    },
+    {
+        "model": "apps_language_practice.Vocabulary",
+        "pk": 42,
+        "fields": {
+            "word_vocab": "to speaking someone's language",
+            "language": 1,
+            "created_at": "2025-06-01T12:00:00Z",
+            "updated_at": "2025-06-01T12:00:00Z",
+            "enable": true
+        }
+    },
+    {
+        "model": "apps_language_practice.Vocabulary",
+        "pk": 43,
+        "fields": {
+            "word_vocab": "Up to my eyes in",
+            "language": 1,
+            "created_at": "2025-06-01T12:00:00Z",
+            "updated_at": "2025-06-01T12:00:00Z",
+            "enable": true
+        }
+    },
+    {
+        "model": "apps_language_practice.Vocabulary",
+        "pk": 44,
+        "fields": {
+            "word_vocab": "Interchange",
+            "language": 1,
+            "created_at": "2025-06-01T12:00:00Z",
+            "updated_at": "2025-06-01T12:00:00Z",
+            "enable": true
+        }
+    },
+    {
+        "model": "apps_language_practice.Vocabulary",
+        "pk": 45,
+        "fields": {
+            "word_vocab": "Highlight",
+            "language": 1,
+            "created_at": "2025-06-01T12:00:00Z",
+            "updated_at": "2025-06-01T12:00:00Z",
+            "enable": true
+        }
+    },
+    {
+        "model": "apps_language_practice.Vocabulary",
+        "pk": 46,
+        "fields": {
+            "word_vocab": "Claim",
+            "language": 1,
+            "created_at": "2025-06-01T12:00:00Z",
+            "updated_at": "2025-06-01T12:00:00Z",
+            "enable": true
+        }
+    }
+]

@@ -1,5 +1,6 @@
 import os
 import random
+from datetime import datetime
 from uuid import uuid4
 from dotenv import load_dotenv
 
@@ -20,13 +21,13 @@ EMAIL_HOST_USER: str = os.getenv("FROM_EMAIL", "")
 
 
 def send_practice_email(user_email: str, email_content: str):
-    subject: str = "Your Daily Language Practice"
-    message: str = email_content
+    today_date = datetime.now().strftime('%d/%m/%Y') 
+    subject: str = f"Your Daily Language Practice ({today_date})"
     
     try:
         send_mail(
             subject=subject,
-            message=message,
+            message=email_content,
             from_email=EMAIL_HOST_USER,
             recipient_list=[user_email],
             fail_silently=False,
@@ -42,17 +43,17 @@ def generate_email_content():
 
     for user in users:
         user_vocabulary: BaseManager[UserVocabulary] = UserVocabulary.objects.filter(user=user, enable=True)
-        distinct_languages: list[dict] = user_vocabulary.values('vocabulary__language').distinct()
+        distinct_languages: list[dict] = user_vocabulary.values('vocabulary__language__name').distinct()
 
         for language in distinct_languages:
-            user_vocabulary_language = user_vocabulary.filter(vocabulary__language=language['vocabulary__language'])
+            user_vocabulary_language = user_vocabulary.filter(vocabulary__language__name=language['vocabulary__language__name'])
 
             
             if user_vocabulary_language.exists():
                 ready_for_practice: list[str] = [uv.vocabulary.word_vocab for uv in user_vocabulary if uv.ready_for_practice]
                 chosen_words: list[str] = random.choices(ready_for_practice, k=min(WORDS_TO_SEND, len(ready_for_practice)))
 
-                response, latency = call_exercice_agent(user_message=" ".join(chosen_words), message_history=[], language=language['vocabulary__language'])
+                response, latency = call_exercice_agent(user_message=" ".join(chosen_words), message_history=[], language=language['vocabulary__language__name'])
                 response_metadata: dict = response.response_metadata if response.response_metadata else {}
                 usage_metadata: dict = response.usage_metadata if response.usage_metadata else {}
                 
@@ -67,3 +68,5 @@ def generate_email_content():
                 )
                 
                 send_practice_email(user_email=user.email, email_content=response.content)
+
+                ## TODO fazer a contagem de palavras praticadas

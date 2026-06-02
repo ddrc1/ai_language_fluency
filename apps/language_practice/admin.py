@@ -1,5 +1,14 @@
 from django.contrib import admin
-from .models import Vocabulary, UserVocabulary
+from .models import Language, Vocabulary, UserVocabulary
+
+
+@admin.register(Language)
+class LanguageAdmin(admin.ModelAdmin):
+    """Admin interface for Language model."""
+    list_display = ('name', 'enable', 'created_at', 'updated_at')
+    list_filter = ('enable', )
+    search_fields = ('name', 'language')
+    readonly_fields = ('created_at', 'updated_at')
 
 
 @admin.register(Vocabulary)

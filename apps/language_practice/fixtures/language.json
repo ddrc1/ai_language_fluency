@@ -1,0 +1,72 @@
+[
+    {
+        "model": "apps_language_practice.Language",
+        "pk": 1,
+        "fields": {
+            "name": "English",
+            "created_at": "2025-06-01T12:00:00Z",
+            "updated_at": "2025-06-01T12:00:00Z",
+            "enable": true
+        }
+    },
+    {
+        "model": "apps_language_practice.Language",
+        "pk": 2,
+        "fields": {
+            "name": "Spanish",
+            "created_at": "2025-06-01T12:00:00Z",
+            "updated_at": "2025-06-01T12:00:00Z",
+            "enable": true
+        }
+    },
+    {
+        "model": "apps_language_practice.Language",
+        "pk": 3,
+        "fields": {
+            "name": "Franch",
+            "created_at": "2025-06-01T12:00:00Z",
+            "updated_at": "2025-06-01T12:00:00Z",
+            "enable": true
+        }
+    },
+    {
+        "model": "apps_language_practice.Language",
+        "pk": 4,
+        "fields": {
+            "name": "Portuguese",
+            "created_at": "2025-06-01T12:00:00Z",
+            "updated_at": "2025-06-01T12:00:00Z",
+            "enable": true
+        }
+    },
+    {
+        "model": "apps_language_practice.Language",
+        "pk": 5,
+        "fields": {
+            "name": "German",
+            "created_at": "2025-06-01T12:00:00Z",
+            "updated_at": "2025-06-01T12:00:00Z",
+            "enable": true
+        }
+    },
+    {
+        "model": "apps_language_practice.Language",
+        "pk": 6,
+        "fields": {
+            "name": "Japanese",
+            "created_at": "2025-06-01T12:00:00Z",
+            "updated_at": "2025-06-01T12:00:00Z",
+            "enable": true
+        }
+    },
+    {
+        "model": "apps_language_practice.Language",
+        "pk": 8,
+        "fields": {
+            "name": "Arabic",
+            "created_at": "2025-06-01T12:00:00Z",
+            "updated_at": "2025-06-01T12:00:00Z",
+            "enable": true
+        }
+    }
+]

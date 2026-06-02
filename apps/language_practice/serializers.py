@@ -1,6 +1,29 @@
 from rest_framework import serializers
 
-from apps.language_practice.models import Vocabulary, UserVocabulary
+from apps.language_practice.models import Language, Vocabulary, UserVocabulary
+
+
+class LanguageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Language
+        fields = '__all__'
+
+    def validate(self, data: dict):
+        name = data.get('name')
+
+        if Vocabulary.objects.filter(name=name.lower()).exists():
+            raise serializers.ValidationError("This language already exists.")
+
+        return data
+
+    def to_representation(self, instance):
+        representation = {
+            "id": instance.id,
+            "language": instance.name
+        }
+
+        return representation
+
 
 class VocabularySerializer(serializers.ModelSerializer):
     class Meta:
@@ -11,7 +34,7 @@ class VocabularySerializer(serializers.ModelSerializer):
         word_vocab = data.get('word_vocab')
         language = data.get('language')
 
-        if Vocabulary.objects.filter(word_vocab=word_vocab.lower(), language=language.lower()).exists():
+        if Vocabulary.objects.filter(word_vocab=word_vocab.lower(), language=language).exists():
             raise serializers.ValidationError("This word already exists.")
 
         return data
@@ -20,7 +43,7 @@ class VocabularySerializer(serializers.ModelSerializer):
         representation = {
             "id": instance.id,
             "word_vocab": instance.word_vocab,
-            "language": instance.language
+            "language": instance.language.name
         }
 
         return representation

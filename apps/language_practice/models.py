@@ -10,13 +10,25 @@ load_dotenv()
 
 PRACTINCING_FACTOR = float(os.getenv("PRACTINCING_FACTOR", 2))
 
-
-class Vocabulary(models.Model):    
-    word_vocab = models.CharField(max_length=255, unique=True, blank=False, null=False,help_text="The word or expression to practice")
-    language = models.TextField(blank=False, null=False, unique=True, help_text="The language of the word (e.g., 'English', 'Spanish')")
+class Language(models.Model):
+    name = models.CharField(blank=False, null=False, unique=True, help_text="The language (e.g., 'English', 'Spanish')")
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     enable = models.BooleanField(default=True, help_text="Whether this word is available for practice")
+
+    def __str__(self):
+        return self.name
+    
+
+class Vocabulary(models.Model):    
+    word_vocab = models.CharField(max_length=255, unique=False, blank=False, null=False, help_text="The word or expression to practice")
+    language = models.ForeignKey(Language, on_delete=models.CASCADE, help_text="The language (e.g., 'English', 'Spanish')")
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    enable = models.BooleanField(default=True, help_text="Whether this word is available for practice")
+
+    class Meta():
+        unique_together = ("word_vocab", "language")
 
     def __str__(self):
         return self.word_vocab

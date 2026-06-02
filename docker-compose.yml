@@ -6,12 +6,14 @@ services:
         command: >
             sh -c "
                 uv run manage.py collectstatic --noinput &&
-                uv run manage.py makemigrations --verbosity 3 --traceback &&
+                uv run manage.py makemigrations &&
                 uv run manage.py migrate &&
+                uv run manage.py load_language_practice &&
+                uv run python docker/create_superuser.py &&
                 uv run gunicorn core.wsgi:application --workers 4 --bind 0.0.0.0:8000
             "
-        # volumes:
-        #     - ./staticfiles:/app/staticfiles
+        volumes:
+            - ./staticfiles:/app/staticfiles
         env_file:
             - .env
         # ports:
@@ -31,6 +33,8 @@ services:
         ports:
             - "5672:5672"
             - "15672:15672"
+        volumes:
+            - ./docker/rabbitmq.conf:/etc/rabbitmq/rabbitmq.conf:ro
         networks:
             - language-fluency-network
         restart: unless-stopped
