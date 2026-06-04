@@ -10,7 +10,7 @@ from django.db.models.manager import BaseManager
 from langchain_core.messages import AIMessage
 
 from apps.authentication.models import User
-from apps.language_practice.models import UserVocabulary
+from apps.language_practice.models import UserVocabulary, Language, Vocabulary
 from apps.llm.model import ChatAI
 from apps.llm.agent import call_exercice_agent
 
@@ -36,37 +36,44 @@ def send_practice_email(user_email: str, email_content: str):
         print(f"Error sending email to {user_email}: {e}")
 
 def generate_email_content():
-    users: BaseManager[User] = User.objects.filter(is_active=True, keep_sending_taks=True)
-    
-    response: AIMessage
-    latency: int
+    try:
+        users: BaseManager[User] = User.objects.filter(is_active=True, keep_sending_taks=True)
+        languages: BaseManager[Language] = Language.objects.filter(enable=True)
+        
+        response: AIMessage
+        latency: int
 
-    for user in users:
-        user_vocabulary: BaseManager[UserVocabulary] = UserVocabulary.objects.filter(user=user, enable=True)
-        distinct_languages: list[dict] = user_vocabulary.values('vocabulary__language__name').distinct()
+        for user in users:
+            user_vocabulary: BaseManager[UserVocabulary] = UserVocabulary.objects.filter(user=user, enable=True)
 
-        for language in distinct_languages:
-            user_vocabulary_language = user_vocabulary.filter(vocabulary__language__name=language['vocabulary__language__name'])
+            for language in languages:
+                user_vocabulary_language = user_vocabulary.filter(vocabulary__language=language)
 
-            
-            if user_vocabulary_language.exists():
-                ready_for_practice: list[str] = [uv.vocabulary.word_vocab for uv in user_vocabulary if uv.ready_for_practice]
-                chosen_words: list[str] = random.choices(ready_for_practice, k=min(WORDS_TO_SEND, len(ready_for_practice)))
+                if user_vocabulary_language.exists():
+                    vocab_for_practice: list[UserVocabulary] = [uv for uv in user_vocabulary if uv.ready_for_practice]
+                    chosen_vocab: list[UserVocabulary] = random.choices(vocab_for_practice, k=min(WORDS_TO_SEND, len(vocab_for_practice)))
+                    words: list[str] = [vocab.vocabulary.word_vocab for vocab in chosen_vocab]
 
-                response, latency = call_exercice_agent(user_message=" ".join(chosen_words), message_history=[], language=language['vocabulary__language__name'])
-                response_metadata: dict = response.response_metadata if response.response_metadata else {}
-                usage_metadata: dict = response.usage_metadata if response.usage_metadata else {}
-                
-                ChatAI.objects.create(
-                    conversation_id=user.username + "_" + str(uuid4()), 
-                    user_message=" ".join(chosen_words),
-                    ai_message=response.content, 
-                    llm_model=response_metadata.get("model_name", "unknown"), 
-                    input_tokens=usage_metadata.get("input_tokens", 0), 
-                    output_tokens=usage_metadata.get("output_tokens", 0),
-                    latency=latency
-                )
-                
-                send_practice_email(user_email=user.email, email_content=response.content)
+                    response, latency = call_exercice_agent(user_message=", ".join(words), message_history=[], language=language.name)
+                    response_metadata: dict = response.response_metadata if response.response_metadata else {}
+                    usage_metadata: dict = response.usage_metadata if response.usage_metadata else {}
+                    
+                    ChatAI.objects.create(
+                        conversation_id=user.username + "_" + str(uuid4()), 
+                        user_message=", ".join(words),
+                        ai_message=response.content, 
+                        llm_model=response_metadata.get("model_name", "unknown"), 
+                        input_tokens=usage_metadata.get("input_tokens", 0), 
+                        output_tokens=usage_metadata.get("output_tokens", 0),
+                        latency=latency
+                    )
+                    
+                    send_practice_email(user_email=user.email, email_content=response.content)
 
-                ## TODO fazer a contagem de palavras praticadas
+                    for user_vocab in chosen_vocab:
+                        user_vocab.practice_count += 1
+                        user_vocab.last_practiced = datetime.now()
+                    
+                    UserVocabulary.objects.bulk_update(objs=chosen_vocab, fields=["practice_count", "last_practiced"])
+    except Exception as e:
+        print(e)

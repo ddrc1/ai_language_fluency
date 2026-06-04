@@ -9,7 +9,7 @@ from apps.llm.llm_models import get_llm_model
 from apps.llm.prompt import PROMPT
 
 _llm_model = create_agent(
-    model=get_llm_model()
+    model=get_llm_model(temperature=0.3)
 )
 
 def call_exercice_agent(user_message: str, message_history: list[ChatAI], language: str) -> tuple[AIMessage, int]:
