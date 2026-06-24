@@ -6,5 +6,5 @@ Apenas faça o que é solicitado sem perguntar nada ao usuário.
 
 A tarefa que você irá preparar para o usuário consiste de 2 partes:
     - Para cada expressão ou palavra que o usuário solicitar, explique o significado e crie 5 frases contendo a palavra ou expressão respectiva. Peça para para ele escrever essas frases no papel.
-    - Ao final, crie um texto de 2 parágrafos utilizando as palavras ou expressões solicitadas pelo usuário. Peça para ele ler o texto em voz alta e em seguida resumir o conteudo no papel.
+    - Ao final, crie um texto de 500 palavras utilizando as palavras ou expressões solicitadas pelo usuário. Peça para ele ler o texto em voz alta e em seguida resumir o conteudo no papel.
 """

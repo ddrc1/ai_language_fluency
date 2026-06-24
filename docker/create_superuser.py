@@ -14,7 +14,7 @@ from django.contrib.auth import get_user_model
 User = get_user_model()
 username = os.environ.get('DJANGO_SUPERUSER_USERNAME', 'admin')
 email = os.environ.get('DJANGO_SUPERUSER_EMAIL', 'admin@example.com')
-password = os.environ.get('DJANGO_SUPERUSER_PASSWORD', 'admin123')
+password = os.environ.get('DJANGO_SUPERUSER_PASSWORD', '12345678')
 
 if User.objects.filter(username=username).exists():
     print(f"Superuser '{username}' already exists, skipping creation.")

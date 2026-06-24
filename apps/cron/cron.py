@@ -57,18 +57,22 @@ def generate_email_content():
                     response, latency = call_exercice_agent(user_message=", ".join(words), message_history=[], language=language.name)
                     response_metadata: dict = response.response_metadata if response.response_metadata else {}
                     usage_metadata: dict = response.usage_metadata if response.usage_metadata else {}
+
+                    response = response.content
+                    if type(response) == list and len(response) > 0 and response[0].get("type") == "text":
+                        response = response[0].get("text")
                     
                     ChatAI.objects.create(
                         conversation_id=user.username + "_" + str(uuid4()), 
                         user_message=", ".join(words),
-                        ai_message=response.content, 
+                        ai_message=response, 
                         llm_model=response_metadata.get("model_name", "unknown"), 
                         input_tokens=usage_metadata.get("input_tokens", 0), 
                         output_tokens=usage_metadata.get("output_tokens", 0),
                         latency=latency
                     )
                     
-                    send_practice_email(user_email=user.email, email_content=response.content)
+                    send_practice_email(user_email=user.email, email_content=response)
 
                     for user_vocab in chosen_vocab:
                         user_vocab.practice_count += 1

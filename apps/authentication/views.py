@@ -9,8 +9,6 @@ from rest_framework.permissions import AllowAny
 from drf_yasg.utils import swagger_auto_schema
 from django.contrib.auth import login, logout
 
-from apps.cron.cron import generate_email_content
-
 
 from apps.authentication.models import User
 from apps.authentication.serializers import RegisterSerializer, LoginSerializer, LogoutSerializer
@@ -42,7 +40,6 @@ class LoginView(views.APIView):
         serializer.is_valid(raise_exception=True)
 
         login(request, serializer.validated_data)
-        generate_email_content()
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 
