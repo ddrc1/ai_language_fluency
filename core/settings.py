@@ -16,7 +16,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY: str = os.getenv("SECRET_KEY", "django-insecure")
 DEBUG: bool = True if os.getenv("DEBUG", "true").lower() == "true" else False
-ALLOWED_HOSTS: list[str] = [host for host in os.getenv("ALLOWED_HOSTS", []).split(",")]
+ALLOWED_HOSTS: list[str] = [host for host in os.getenv("ALLOWED_HOSTS", "localhost,127.0.0.1").split(",") if host]
+CORS_ALLOWED_ORIGINS: list[str] = [host for host in os.getenv("CORS_ALLOWED_ORIGINS", []).split(",") if host]
+CORS_ALLOW_CREDENTIALS = True
+
+CSRF_TRUSTED_ORIGINS: list[str] = [host for host in os.getenv("CSRF_TRUSTED_ORIGINS", []).split(",") if host]
 
 AUTH_USER_MODEL: str = 'apps_authentication.User'
 
@@ -43,12 +47,12 @@ INSTALLED_APPS = [
 MIDDLEWARE: list[str] = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.locale.LocaleMiddleware'
 ]
 

@@ -8,6 +8,12 @@ from apps.llm.model import ChatAI
 from apps.llm.agent import call_exercice_agent
 
 
+class ChatHistorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ChatAI
+        fields = ['conversation_id', 'user_message', 'ai_message', 'created_at']
+
+
 class ExerciseAgentSerializer(serializers.Serializer):
     conversation_id = serializers.CharField(required=False)
     message = serializers.CharField()
@@ -37,7 +43,12 @@ class ExerciseAgentSerializer(serializers.Serializer):
 
         response: AIMessage
         latency: int
-        response, latency = call_exercice_agent(user_message=validated_data["message"], message_history=message_history, language=validated_data["language"])
+        response, latency = call_exercice_agent(
+            user_message=validated_data["message"],
+            message_history=message_history,
+            language=validated_data["language"],
+            qtd_examples=3,
+        )
         response_metadata: dict = response.response_metadata if response.response_metadata else {}
         usage_metadata: dict = response.usage_metadata if response.usage_metadata else {}
 

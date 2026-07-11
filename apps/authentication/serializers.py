@@ -12,7 +12,7 @@ from apps.authentication.password_validation import validators
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ["id", "email", "username", "staff", "last_login", "active"]
+        fields = ["id", "email", "username", "is_staff", "is_superuser", "last_login", "is_active"]
 
 
 class RegisterSerializer(serializers.ModelSerializer):
@@ -58,6 +58,8 @@ class LoginSerializer(serializers.Serializer):
             'id': instance.id,
             'username': instance.username,
             'email': instance.email,
+            'is_staff': instance.is_staff,
+            'is_superuser': instance.is_superuser,
             'tokens': TokensSerializer(instance.tokens()).data
         }
 

@@ -56,7 +56,6 @@ class UserVocabulary(models.Model):
         """
         Update the practice count and timestamp.
         """
-        
         self.practice_count += 1
         self.last_practiced = timezone.now()
         self.save()

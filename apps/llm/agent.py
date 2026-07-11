@@ -12,9 +12,12 @@ _llm_model = create_agent(
     model=get_llm_model(temperature=0.7)
 )
 
-def call_exercice_agent(user_message: str, message_history: list[ChatAI], language: str) -> tuple[AIMessage, int]:
+def call_exercice_agent(user_message: str, message_history: list[ChatAI], language: str, qtd_examples: int) -> tuple[AIMessage, int]:
     if message_history:
-        messages: list[BaseMessage] = list.extend([[HumanMessage(content=message.user_message), AIMessage(content=message.ai_message)] for message in message_history])
+        messages: list[BaseMessage] = []
+        for message in message_history:
+            messages.append(HumanMessage(content=message.user_message))
+            messages.append(AIMessage(content=message.ai_message))
     else:
         messages = []
     
@@ -24,7 +27,7 @@ def call_exercice_agent(user_message: str, message_history: list[ChatAI], langua
         HumanMessage(content=user_message)
     ])
 
-    prompt: list[BaseMessage] = template.format_prompt(messages=messages, language=language)
+    prompt: list[BaseMessage] = template.format_prompt(messages=messages, language=language, qtd_examples=qtd_examples)
   
     start_time: float = time()
     response: dict = _llm_model.invoke(input=prompt)
