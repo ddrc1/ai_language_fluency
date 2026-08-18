@@ -41,7 +41,6 @@ class LoginView(views.APIView):
         serializer.is_valid(raise_exception=True)
 
         login(request, serializer.validated_data)
-        generate_email_content()
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 
