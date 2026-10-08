@@ -6,9 +6,14 @@ on:
     pull_request:
         branches: [main]
 
+concurrency:
+    group: ${{github.workflow}}-${{github.ref}}
+    cancel-in-progress: true
+
 jobs:
     tests:
         runs-on: ubuntu-latest
+        timeout-minutes: 10
         services:
             postgres:
                 image: postgres:17
@@ -23,12 +28,18 @@ jobs:
                     --health-retries 5
         steps:
             - uses: actions/checkout@v4
+
             - name: Install uv
               uses: astral-sh/setup-uv@v10.1.0
               with:
                 enable-cache: true
+
             - name: Install dependencies
               run: uv sync --locked
+            
+            - name: Missing migrations
+              run: uv run manage.py makemigrations --check --dry-run
+
             - name: Run tests
               env:
                 POSTGRES_DB: postgres
@@ -36,4 +47,6 @@ jobs:
                 POSTGRES_PASSWORD: postgres
                 POSTGRES_HOST: localhost
                 POSTGRES_PORT: "5432"
+
               run: uv run manage.py test apps
+              
