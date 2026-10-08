@@ -59,7 +59,7 @@ class VocabularyModelTests(TestCase):
 
     def test_vocabulary_duplicate_across_languages_raises_error(self):
         spanish = Language.objects.create(name='Spanish')
-        Vocabulary.objects.create(word_vocab='beautiful', language=self.language)
+        Vocabulary.objects.create(word_vocab='beautiful', language=spanish)
 
         with self.assertRaises(Exception):
             Vocabulary.objects.create(word_vocab='beautiful', language=spanish)
