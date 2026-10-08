@@ -1,196 +1,193 @@
-"""
-Tests for the english_practice module.
-"""
 from django.test import TestCase
 from django.utils import timezone
 from django.contrib.auth import get_user_model
-from apps.language_practice.models import WordVocab, UserWordVocab
+
+from apps.language_practice.models import Language, Vocabulary, UserVocabulary
 
 
 User = get_user_model()
 
 
-class WordVocabModelTests(TestCase):
-    """Test cases for the WordVocab model."""
+class LanguageModelTests(TestCase):
+    """Test cases for the Language model."""
 
     def setUp(self):
-        """Set up test fixtures."""
-        self.word_data = {
+        self.language_data = {'name': 'English'}
+
+    def test_create_language(self):
+        language = Language.objects.create(**self.language_data)
+
+        self.assertIsNotNone(language.id)
+        self.assertEqual(language.name, self.language_data['name'])
+        self.assertTrue(language.enable)
+
+    def test_language_duplicate_raises_error(self):
+        Language.objects.create(**self.language_data)
+
+        with self.assertRaises(Exception):
+            Language.objects.create(**self.language_data)
+
+    def test_language_string_representation(self):
+        language = Language.objects.create(**self.language_data)
+
+        self.assertEqual(str(language), language.name)
+
+
+class VocabularyModelTests(TestCase):
+    """Test cases for the Vocabulary model."""
+
+    def setUp(self):
+        self.language = Language.objects.create(name='English')
+        self.vocabulary_data = {
             'word_vocab': 'beautiful',
-            'type': 'adjective',
-            'definition': 'Bonito',
-            'example': 'The sunset is beautiful.',
+            'language': self.language,
             'enable': True,
         }
 
-    def test_create_word(self):
-        """Test creating a new word."""
-        word = WordVocab.objects.create(**self.word_data)
-        
-        self.assertIsNotNone(word.id)
-        self.assertEqual(word.word_vocab, self.word_data['word_vocab'])
-        self.assertEqual(word.type, self.word_data['type'])
+    def test_create_vocabulary(self):
+        vocabulary = Vocabulary.objects.create(**self.vocabulary_data)
 
-    def test_word_duplicate_raises_error(self):
-        """Test that duplicate words are not allowed."""
-        WordVocab.objects.create(**self.word_data)
-        
-        with self.assertRaises(Exception):  # IntegrityError
-            WordVocab.objects.create(**self.word_data)
+        self.assertIsNotNone(vocabulary.id)
+        self.assertEqual(vocabulary.word_vocab, self.vocabulary_data['word_vocab'])
+        self.assertEqual(vocabulary.language, self.language)
 
-    def test_word_string_representation(self):
-        """Test string representation of word."""
-        word = WordVocab.objects.create(**self.word_data)
-        
-        expected = f"{word.word_vocab} (Adjective)"
-        self.assertEqual(str(word), expected)
+    def test_vocabulary_duplicate_in_same_language_raises_error(self):
+        Vocabulary.objects.create(**self.vocabulary_data)
 
-    def test_word_enable_disable(self):
-        """Test enabling and disabling words."""
-        word = WordVocab.objects.create(**self.word_data)
-        
-        self.assertTrue(word.enable)
-        
-        word.enable = False
-        word.save()
-        
-        self.assertFalse(word.enable)
+        with self.assertRaises(Exception):
+            Vocabulary.objects.create(**self.vocabulary_data)
+
+    def test_vocabulary_duplicate_across_languages_raises_error(self):
+        spanish = Language.objects.create(name='Spanish')
+        Vocabulary.objects.create(word_vocab='beautiful', language=self.language)
+
+        with self.assertRaises(Exception):
+            Vocabulary.objects.create(word_vocab='beautiful', language=spanish)
+
+    def test_vocabulary_string_representation(self):
+        vocabulary = Vocabulary.objects.create(**self.vocabulary_data)
+
+        self.assertEqual(str(vocabulary), vocabulary.word_vocab)
+
+    def test_vocabulary_enable_disable(self):
+        vocabulary = Vocabulary.objects.create(**self.vocabulary_data)
+
+        self.assertTrue(vocabulary.enable)
+
+        vocabulary.enable = False
+        vocabulary.save()
+
+        self.assertFalse(vocabulary.enable)
 
 
-class UserWordVocabModelTests(TestCase):
-    """Test cases for the UserWordVocab model."""
+class UserVocabularyModelTests(TestCase):
+    """Test cases for the UserVocabulary model."""
 
     def setUp(self):
-        """Set up test fixtures."""
         self.user = User.objects.create_user(
             username='testuser',
             email='test@example.com',
             password='testpass123'
         )
-        
-        self.word = WordVocab.objects.create(
+        self.language = Language.objects.create(name='English')
+        self.vocabulary = Vocabulary.objects.create(
             word_vocab='serendipity',
-            type='noun',
-            definition='Encontro feliz por acaso',
-            example='Meeting her was serendipity.',
+            language=self.language,
             enable=True
         )
 
-    def test_create_user_word(self):
-        """Test creating a UserWordVocab relationship."""
-        user_word = UserWordVocab.objects.create(
+    def test_create_user_vocabulary(self):
+        user_vocabulary = UserVocabulary.objects.create(
             user=self.user,
-            word_vocab=self.word,
-            level='learning'
+            vocabulary=self.vocabulary,
         )
-        
-        self.assertIsNotNone(user_word.id)
-        self.assertEqual(user_word.user, self.user)
-        self.assertEqual(user_word.word_vocab, self.word)
-        self.assertEqual(user_word.level, 'learning')
+
+        self.assertIsNotNone(user_vocabulary.id)
+        self.assertEqual(user_vocabulary.user, self.user)
+        self.assertEqual(user_vocabulary.vocabulary, self.vocabulary)
+        self.assertEqual(user_vocabulary.practice_count, 0)
+        self.assertIsNone(user_vocabulary.last_practiced)
 
     def test_unique_constraint(self):
-        """Test that user-word pairs are unique."""
-        UserWordVocab.objects.create(
+        UserVocabulary.objects.create(
             user=self.user,
-            word_vocab=self.word,
-            level='learning'
+            vocabulary=self.vocabulary,
         )
-        
-        with self.assertRaises(Exception):  # IntegrityError
-            UserWordVocab.objects.create(
+
+        with self.assertRaises(Exception):
+            UserVocabulary.objects.create(
                 user=self.user,
-                word_vocab=self.word,
-                level='practicing'
+                vocabulary=self.vocabulary,
             )
 
     def test_mark_as_practiced(self):
-        """Test marking a word as practiced."""
-        user_word = UserWordVocab.objects.create(
+        user_vocabulary = UserVocabulary.objects.create(
             user=self.user,
-            word_vocab=self.word
+            vocabulary=self.vocabulary,
         )
-        
-        initial_count = user_word.times_practiced
-        initial_last_practiced = user_word.last_practiced
-        
-        user_word.mark_as_practiced()
-        
-        self.assertEqual(user_word.times_practiced, initial_count + 1)
-        self.assertIsNotNone(user_word.last_practiced)
-        self.assertGreater(user_word.last_practiced, initial_last_practiced or timezone.now() - timezone.timedelta(seconds=1))
+
+        initial_count = user_vocabulary.practice_count
+        initial_last_practiced = user_vocabulary.last_practiced
+
+        user_vocabulary.mark_as_practiced()
+
+        self.assertEqual(user_vocabulary.practice_count, initial_count + 1)
+        self.assertIsNotNone(user_vocabulary.last_practiced)
+        if initial_last_practiced is not None:
+            self.assertGreater(user_vocabulary.last_practiced, initial_last_practiced)
 
     def test_mark_as_practiced_multiple_times(self):
-        """Test marking a word as practiced multiple times."""
-        user_word = UserWordVocab.objects.create(
+        user_vocabulary = UserVocabulary.objects.create(
             user=self.user,
-            word_vocab=self.word
+            vocabulary=self.vocabulary,
         )
-        
+
         for _ in range(5):
-            user_word.mark_as_practiced()
-        
-        self.assertEqual(user_word.times_practiced, 5)
+            user_vocabulary.mark_as_practiced()
 
-    def test_update_level(self):
-        """Test updating proficiency level."""
-        user_word = UserWordVocab.objects.create(
-            user=self.user,
-            word_vocab=self.word,
-            level='learning'
-        )
-        
-        user_word.update_level('practicing')
-        self.assertEqual(user_word.level, 'practicing')
-        
-        user_word.update_level('mastered')
-        self.assertEqual(user_word.level, 'mastered')
+        self.assertEqual(user_vocabulary.practice_count, 5)
 
-    def test_update_level_invalid(self):
-        """Test updating to an invalid level."""
-        user_word = UserWordVocab.objects.create(
+    def test_ready_for_practice(self):
+        user_vocabulary = UserVocabulary.objects.create(
             user=self.user,
-            word_vocab=self.word,
-            level='learning'
+            vocabulary=self.vocabulary,
         )
-        
-        original_level = user_word.level
-        user_word.update_level('invalid_level')
-        
-        # Level should not change
-        self.assertEqual(user_word.level, original_level)
+
+        self.assertTrue(user_vocabulary.ready_for_practice)
+
+        user_vocabulary.practice_count = 3
+        user_vocabulary.last_practiced = timezone.now() - timezone.timedelta(days=4)
+        user_vocabulary.save(update_fields=['practice_count', 'last_practiced'])
+
+        self.assertTrue(user_vocabulary.ready_for_practice)
 
     def test_string_representation(self):
-        """Test string representation of UserWordVocab."""
-        user_word = UserWordVocab.objects.create(
+        user_vocabulary = UserVocabulary.objects.create(
             user=self.user,
-            word_vocab=self.word,
-            level='learning'
+            vocabulary=self.vocabulary,
         )
-        
-        expected = f"{self.user.username} - {self.word.word_vocab} (learning)"
-        self.assertEqual(str(user_word), expected)
+
+        expected = f"{self.user.username} - {self.vocabulary.word_vocab}"
+        self.assertEqual(str(user_vocabulary), expected)
 
     def test_cascade_delete_user(self):
-        """Test that UserWordVocab is deleted when user is deleted."""
-        user_word = UserWordVocab.objects.create(
+        user_vocabulary = UserVocabulary.objects.create(
             user=self.user,
-            word_vocab=self.word
+            vocabulary=self.vocabulary,
         )
-        
-        user_word_id = user_word.id
-        self.user.delete()
-        
-        self.assertFalse(UserWordVocab.objects.filter(id=user_word_id).exists())
 
-    def test_cascade_delete_word(self):
-        """Test that UserWordVocab is deleted when word is deleted."""
-        user_word = UserWordVocab.objects.create(
+        user_vocabulary_id = user_vocabulary.id
+        self.user.delete()
+
+        self.assertFalse(UserVocabulary.objects.filter(id=user_vocabulary_id).exists())
+
+    def test_cascade_delete_vocabulary(self):
+        user_vocabulary = UserVocabulary.objects.create(
             user=self.user,
-            word_vocab=self.word
+            vocabulary=self.vocabulary,
         )
-        
-        user_word_id = user_word.id
-        self.word.delete()
-        
-        self.assertFalse(UserWordVocab.objects.filter(id=user_word_id).exists())
+
+        user_vocabulary_id = user_vocabulary.id
+        self.vocabulary.delete()
+
+        self.assertFalse(UserVocabulary.objects.filter(id=user_vocabulary_id).exists())

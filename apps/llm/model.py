@@ -15,4 +15,4 @@ class ChatAI(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, help_text="Timestamp when the message was created")
 
     def __str__(self):
-        return f"{self.conversation_id} - {self.message[:50]}"
+        return f"{self.conversation_id} - {self.ai_message[:50]}"

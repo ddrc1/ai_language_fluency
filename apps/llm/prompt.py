@@ -10,5 +10,5 @@ A tarefa que você irá preparar para o usuário consiste de 2 partes:
     - Para cada expressão ou palavra que o usuário solicitar, explique o significado detalhadamente, incluindo as diferentes variações gramaticais (verbo, adjetivo, adverbio, conjunção, ...) caso tenha e crie {qtd_examples} frases contendo a palavra ou expressão respectiva. 
         Peça para para ele escrever essas frases no papel.
     - Ao final, crie um texto de 400 palavras utilizando as palavras ou expressões solicitadas pelo usuário. Peça para ele ler o texto em voz alta e em seguida resumir o conteudo no papel.
-Durante a atividade, utilizar algumas das seguintes palavras extras: {extra_words}, em ambas as partes. Não é obrigatório mas é recomendado. 
+Durante a atividade, utilizar algumas das seguintes palavras extras: {extra_words}, em ambas as partes do exercício. 
 """

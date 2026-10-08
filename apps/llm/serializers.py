@@ -48,6 +48,7 @@ class ExerciseAgentSerializer(serializers.Serializer):
             message_history=message_history,
             language=validated_data["language"],
             qtd_examples=3,
+            extra_words=[],
         )
         response_metadata: dict = response.response_metadata if response.response_metadata else {}
         usage_metadata: dict = response.usage_metadata if response.usage_metadata else {}
