@@ -89,7 +89,6 @@ class UserVocabularyViewSet(DefaultViewSet):
 
     @swagger_auto_schema(responses={status.HTTP_201_CREATED: UserVocabularyResponseSerializer()})
     def create(self, request, *args, **kwargs):
-        print("OK")
         return super().create(request, *args, **kwargs)
 
     @action(detail=True, methods=['post'], url_path='mark-practiced')

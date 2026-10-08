@@ -22,7 +22,9 @@ _agent: CompiledStateGraph = create_agent(
     middleware=[fallback_models],
 )
 
-def call_exercice_agent(user_message: str, message_history: list[ChatAI], language: str, qtd_examples: int, extra_words: list[str]) -> tuple[AIMessage, int]:
+def call_exercice_agent(user_message: str, message_history: list[ChatAI], language: str, qtd_examples: int, extra_words: list[str] | None = None) -> tuple[AIMessage, int]:
+    if extra_words is None:
+        extra_words = []
     if message_history:
         messages: list[BaseMessage] = []
         for message in message_history:
